@@ -17,9 +17,9 @@
             --text-light: #666666;
         }
 
-        body {
+   body {
             font-family: 'Assistant', sans-serif;
-            background-color: var(--bg-color);
+            background-color: #e9ecef; /* צבע רקע חיצוני למחשב */
             color: var(--text-main);
             margin: 0;
             padding: 0;
@@ -27,9 +27,12 @@
         }
 
         .container {
-            max-width: 600px; /* מותאם לנייד */
-            margin: 0 auto;
+            max-width: 500px; /* מגביל את הרוחב למראה של טלפון נייד */
+            margin: 0 auto; /* ממרכז את התוכן במסך */
             padding: 15px;
+            background-color: var(--bg-color); /* רקע פנימי של הדשבורד */
+            min-height: 100vh; /* מוודא שהצבע הפנימי נמשך עד תחתית המסך */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* מוסיף הצללה יפה בשוליים */
         }
 
         /* Header */
@@ -253,7 +256,7 @@
 </head>
 <body>
 <img src="1.jpg" alt="לוגו טיול" class="logo" onerror="if (this.src != '1.JPG') this.src = '1.JPG';">
-          <h1>טיול זוגי ברגשטיין בודפשט | יוני 2026</h1>
+          <h1>טיול זוגי ברגשטיין בודפשט</h1>
         
         <div class="info-box">
             <strong><i class="fa-solid fa-coins"></i> מטבע: פורינט</strong><br>
