@@ -17,26 +17,22 @@
             --text-light: #666666;
         }
 
- /* עיצוב המסך החיצוני למחשב */
-        body {
-            font-family: 'Assistant', sans-serif;
-            background-color: #f4f5f7; /* רקע חיצוני אפרפר עדין מאוד שלא מפריע לעין */
-            color: var(--text-main);
+   * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            line-height: 1.6;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
         }
 
-        /* עיצוב "האפליקציה" עצמה - צר וממורכז */
-        .container {
-            max-width: 500px; /* עושה את התצוגה צרה כמו בנייד */
-            margin: 0 auto; /* ממרכז את האפליקציה באמצע המסך במחשב */
-            padding: 20px;
-            background-color: var(--bg-color); /* שומר על רקע לבן ונקי בפנים */
-            min-height: 100vh;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.05); /* צל עדין שמפריד מהרקע */
-            box-sizing: border-box;
+        body {
+            background-color: var(--color-light-bg);
+            color: var(--color-text);
+            padding: 15px;
+            line-height: 1.5;
+            max-width: 600px;
+            margin: 0 auto;
         }
+     
 
         /* Header */
         .header {
