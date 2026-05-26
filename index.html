@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>דשבורד טיול - בודפשט</title>
+    <style>
+        :root {
+            --color-green: #3A6351;
+            --color-brown: #5E454B;
+            --color-orange: #D9744B;
+            --color-light-bg: #Faf6f0;
+            --color-card-bg: #FFFFFF;
+            --color-text: #333333;
+            --color-muted: #666666;
+            --color-border: #E3DCD2;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--color-light-bg);
+            color: var(--color-text);
+            padding: 15px;
+            line-height: 1.5;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Header Styles */
+        header {
+            text-align: center;
+            padding: 20px 0;
+            margin-bottom: 15px;
+        }
+
+        .logo-container {
+            width: 110px;
+            height: 110px;
+            margin: 0 auto 12px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid var(--color-green);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            background-color: #fff;
+        }
+
+        .logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        header h1 {
+            font-size: 24px;
+            color: var(--color-brown);
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        header p {
+            font-size: 14px;
+            color: var(--color-muted);
+        }
+
+        /* Top Bar Info & Quick Actions */
+        .quick-info-box {
+            background: var(--color-card-bg);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 1px solid var(--color-border);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            font-size: 13px;
+            margin-bottom: 12px;
+        }
+
+        .info-item {
+            background: #FDFBF9;
+            padding: 8px 12px;
+            border-radius: 8px;
+            border-right: 3px solid var(--color-orange);
+        }
+
+        .info-item span {
+            font-weight: bold;
+            color: var(--color-brown);
+        }
+
+        .quick-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .btn {
+            display: inline-block;
+            text-align: center;
+            background: var(--color-green);
+            color: #ffffff;
+            padding: 10px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .btn:hover, .btn:active {
+            background: #2C4B3D;
+        }
+
+        .btn-orange {
+            background: var(--color-orange);
+        }
+
+        .btn-orange:hover, .btn-orange:active {
+            background: #C25F38;
+        }
+
+        .btn-brown {
+            background: var(--color-brown);
+        }
+
+        .btn-brown:hover, .btn-brown:active {
+            background: #4A363B;
+        }
+
+        /* Day Card Structure */
+        .day-card {
+            background: var(--color-card-bg);
+            border-radius: 14px;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid var(--color-border);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.03);
+        }
+
+        .day-header {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--color-green);
+            border-bottom: 2px solid var(--color-orange);
+            padding-bottom: 6px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .day-date {
+            font-size: 13px;
+            color: var(--color-muted);
+            background: #F5EFEB;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-weight: normal;
+        }
+
+        /* Collapsible Activity Cards (Details) */
+        details.activity-card {
+            background: #FCFAF7;
+            border: 1px solid var(--color-border);
+            border-radius: 10px;
+            margin-bottom: 10px;
+            overflow: hidden;
+            transition: all 0.2s ease;
+        }
+
+        details.activity-card[open] {
+            border-color: var(--color-orange);
+            background: #FFFFFF;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+        }
+
+        summary.activity-summary {
+            padding: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+        }
+
+        summary.activity-summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .summary-content {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            justify-content: space-between;
+        }
+
+        .activity-title {
+            color: var(--color-brown);
+            flex-grow: 1;
+            padding-right: 5px;
+        }
+
+        .activity-time {
+            background: var(--color-brown);
+            color: white;
+            padding: 2px 7px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-left: 10px;
+            white-space: nowrap;
+        }
+
+        .activity-optional {
+            background: #E5E5E5;
+            color: #555;
+            padding: 2px 6px;
+            border-radius: 6px;
+            font-size: 11px;
+            margin-left: 5px;
+            white-space: nowrap;
+        }
+
+        /* Inside Details Content Row List */
+        .activity-details-content {
+            padding: 12px;
+            border-top: 1px dashed var(--color-border);
+            font-size: 13.5px;
+            background: #FFFDFB;
+        }
+
+        .detail-row {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 8px;
+            padding-bottom: 4px;
+        }
+
+        .detail-row:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .detail-icon {
+            font-size: 16px;
+            margin-left: 8px;
+            width: 20px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .detail-text {
+            color: var(--color-text);
+            word-break: break-word;
+        }
+
+        .detail-text span {
+            font-weight: bold;
+            color: var(--color-brown);
+        }
+
+        .detail-link {
+            color: var(--color-orange);
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+        }
+        
+        .detail-link:underline {
+            text-decoration: underline;
+        }
+
+        /* Restaurants Section */
+        .section-title {
+            font-size: 19px;
+            font-weight: 700;
+            color: var(--color-brown);
+            margin: 25px 0 10px;
+            padding-right: 5px;
+            border-right: 4px solid var(--color-green);
+        }
+
+        .restaurant-card {
+            background: var(--color-card-bg);
+            border-radius: 12px;
+            border: 1px solid var(--color-border);
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+
+        summary.restaurant-summary {
+            padding: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            color: var(--color-green);
+            background: #FDFBF9;
+        }
+
+        .restaurant-details {
+            padding: 12px;
+            border-top: 1px solid var(--color-border);
+            font-size: 13px;
+            background: #FFF;
+        }
+
+        .restaurant-details p {
+            margin-bottom: 6px;
+        }
+
+        .restaurant-details p:last-child {
+            margin-bottom: 0;
+        }
+
+        .restaurant-details span {
+            font-weight: bold;
+            color: var(--color-brown);
+        }
+
+        /* Costs Table */
+        .costs-container {
+            background: var(--color-card-bg);
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 20px;
+            border: 1px solid var(--color-border);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+        }
+
+        table.costs-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            text-align: right;
+            margin-top: 10px;
+        }
+
+        table.costs-table th {
+            background-color: var(--color-green);
+            color: white;
+            padding: 10px;
+            font-weight: bold;
+        }
+
+        table.costs-table td {
+            padding: 10px;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        table.costs-table tr:nth-child(even) {
+            background-color: #FDFBF9;
+        }
+
+        .total-row {
+            font-weight: bold;
+            background-color: #F5EFEB !important;
+            color: var(--color-brown);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 25px 0 10px;
+            margin-top: 30px;
+            font-size: 12px;
+            color: var(--color-muted);
+            border-top: 1px solid var(--color-border);
+        }
+
+        /* Custom subtle marker styling */
+        summary::-webkit-details-marker {
+            display: none;
+        }
+        summary {
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        summary::after {
+            content: "▼";
+            font-size: 11px;
+            color: var(--color-orange);
+            transition: transform 0.2s;
+            margin-right: 10px;
+        }
+        details[open] summary::after {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <div class="logo-container">
+            <img src="1.JPG" alt="לוגו טיול">
+        </div>
+        <h1>טיול בודפשט המדהים</h1>
+        <p>לוח זמנים ומידע חכם מותאם לנייד</p>
+    </header>
+
+    <!-- Quick Info & Action Header Buttons -->
+    <div class="quick-info-box">
+        <div class="info-grid">
+            <div class="info-item">💰 מטבע: <span>פורינט (להוריד שני אפסים)</span></div>
+            <div class="info-item">☀️ 100 פורינט: <span>0.93 ש"ח</span></div>
+            <div class="info-item">🌇 שקיעה: <span>20:30</span></div>
+            <div class="info-item">🌦️ תחזית: <a href="https://share.google/79RZ4E3O5W4lO8Fvr" target="_blank" class="detail-link">לחץ לצפייה</a></div>
+        </div>
+        <div class="quick-buttons">
+            <a href="https://maps.app.goo.gl/sbsX1KHZ69zrKsc98" target="_blank" class="btn btn-orange">🗺️ המפה הכללית שלכם</a>
+            <a href="https://maps.app.goo.gl/ua1vU5C5rJGmZXys5" target="_blank" class="btn">🏠 הדירה בבודפשט</a>
+            <a href="https://maps.app.goo.gl/5uacQr1tV82xHTMBA" target="_blank" class="btn btn-brown">🕌 בית כנסת קזניצי</a>
+            <a href="https://maps.app.goo.gl/E8SeyBTTRkYMwiFw5" target="_blank" class="btn btn-brown">🕌 בית כנסת חב"ד</a>
+        </div>
+    </div>
+
+    <!-- ==================== DAYS CONTENT ==================== -->
+
+    <!-- יום שני -->
+    <div class="day-card">
+        <div class="day-header">
+            <span>יום שני - מתחילים</span>
+            <span class="day-date">1/6</span>
+        </div>
+
+        <details class="activity-card">
+            <summary class="activity-summary">
+                <div class="summary-content">
+                    <span class="activity-title">הגעה לנמל התעופה בישראל</span>
+                    <span class="activity-time">07:45</span>
+                </div>
+            </summary>
+            <div class="activity-details-content">
+                <div class="detail-row">
+                    <div class="detail-icon">📝</div>
+                    <div class="detail-text"><span>מה עושים:</span> התארגנות, צ'ק אין ובידוק ביטחוני בשדה התעופה בן גוריון.</div>
+                </div>
+            </div>
+        </details>
+
+        <details class="activity-card">
+            <summary class="activity-summary">
+                <div class="summary-content">
+                    <span class="activity-title">המראה לבודפשט</span>
+                    <span class="activity-time">10:10</span>
+                </div>
+            </summary>
+            <div class="activity-details-content">
+                <div class="detail-row">
+                    <div class="detail-icon">🛫</div>
+                    <div class="detail-text"><span>טיסה:</span> טיסה ישירה לבודפשט. טיסה נעימה!</div>
+                </div>
+            </div>
+        </details>
+
+        <details class="activity-card">
+            <summary class="activity-summary">
+                <div class="summary-content">
+                    <span class="activity-title">נחיתה בבודפשט והגעה לדירה</span>
+                    <span class="activity-time">14:00</span>
+                </div>
+            </summary>
+            <div class="activity-details-content">
+                <div class="detail-row">
+                    <div class="detail-icon">🏠</div>
+                    <div class="detail-text"><span>מה עושים:</span> נחיתה, איסוף מזוודות והגעה לדירה המפנקת ברובע היהודי.</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-icon">📍</div>
+                    <div class="detail-text"><span>ניווט לדירה:</span> <a href="https://maps.app.goo.gl/ua1vU5C5rJGmZXys5" target="_blank" class="detail-link">פתח במפה</a></div>
+                </div>
+            </div>
+        </details>
+
+        <details class="activity-card">
+            <summary class="activity-summary">
+                <div class="summary-content">
+                    <span class="activity-title">פארק אי מרגיט וטיילת האי</span>
+                    <span class="activity-time">16:00-19:30</span>
+                </div>
+            </summary>
+            <div class="activity-details-content">
+                <div class="detail-row">
+                    <div class="detail-icon">📝</div>
+                    <div class="detail-text"><span>מה עושים:</span> טיול רגוע בטיילת האי הירוק והיפה, זמן איכות בטבע על גדות הדנובה.</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-icon">🥯</div>
+                    <div class="detail-text"><span>אוכל בסביבה:</span> ברוקלין בייגל (חלבי כשר) - <a href="https://maps.app.goo.gl/nD7LJZJ6kKqNsisWA" target="_blank" class="detail-link">ניווט לבייגל</a></div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-icon">🚲</div>
+                    <div class="detail-text"><span>השכרת אופניים (אופציונלי):</span> חוויה נהדרת ברחבי האי. <a href="https://maps.app.goo.gl/oEiGGwZvdT5RaRHP6" target="_blank" class="detail-link">מיקום אופניים</a></div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-icon">💰</div>
+                    <div class="detail-text"><span>עלות אופניים:</span> כ-60 ש"ח לחצי שעה.</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-icon">📍</div>
+                    <div class="detail-text"><span>ניווט לטיילת:</span> <a href="https://maps.app.goo.gl/h3T5Z6DkZMzPuxE96" target="_blank" class="detail-link">פתח במפה</a></div>
+                </div>
+            </div>
+        </details>
+
+        <details class="activity-card">
+            <summary class="activity-summary">
+                <div class="summary-content">
+                    <span class="activity-title">מדרחוב ואצי אוצה</span>
+                    <span class="activity-time">18:00-20:00</span>
+                    <span class="activity-optional">אופציונלי</span>
+                </div>
+            </summary>
+            <div class="activity-details-content">
+                <div class="detail-row">
+                    <div class="detail-icon">🛍️</div>
+                    <div class="detail-text"><span>מה עושים:</span> מדרחוב הקניות המפורסם והשוקק של בודפשט. סתובבות וחלונות ראווה.</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-icon">📍</div>
+                    <div class="detail-text"><span>ניווט:</span> <a href="https://maps.app.goo.gl/jmXuj55CdYfXqP1D6" target="_blank" class="detail-link">פתח במפה</a></div>
+                </div>
+            </div>
+        </details>
+
+        <details class="activity-card">
+            <summary class="activity-summary">
+                <div class="summary-content">
+                    <span class="activity-title">תפילת מנחה וערבית</span>
+                    <span class="activity-time">20:15</span>
+                </div>
+            </summary>
+            <div class="activity-details-content">
+                <div class="detail-row">
+                    <div class="detail-icon">🕌</div>
+                    <div class="detail-text"><span>מקום:</span> בית הכנסת הגדול והמרכזי קזניצ'י.</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-icon">📍</div>
+                    <div class="detail-text"><span>ניווט:</span> <a href="https://maps.app.goo.gl/5uacQr1tV82xHTMBA" target="_blank" class="detail-link">פתח במפה</a></div>
+                </div>
+            </div>
+        </details>
+
+        <details class="activity-card">
+            <summary class="activity-summary">
+                <div class="summary-content">
+                    <span class="activity-title">שייט לילי קסום על הדנובה</span>
+                    <span class="activity-time">22:00</span>
+                </div>
+            </summary>
+            <div class="activity-details-content">
+                <div class="detail-row">
+                    <div class="detail-icon">🚢</div>
+                    <div class="detail-text"><span>מה עושים:</span> שייט חווייתי תחת אורות העיר המוארים והבניינים הארכיטקטוניים המרשימים. משך השייט כשעה.</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-icon">💰</div>
+                    <div class="detail-text"><span>עלות:</span> כ-50 ש"ח לאדם.</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-icon">🎟️</div>
+                    <div class="detail-text"><span>כרטיסים:</span> <a href="https://www.getyourguide.com/he-il/budapest-l29/budapest-by-boat-t471019?locale=iw-IL&currency=ILS&surface=maps&funnel=nav&google_ads_click_source=&product_id=471019&option_id=1992856&partner_id=CD951&visitor-id=VS47ZK32ILE1OCVFLTI9ZZY4V6JUCJG2&locale_autoredirect_optout=true&date_from=2026-06-01" target="_blank" class="detail-link">לרכישת כרטיסים ישירה</a></div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-icon">📍</div>
+                    <div class="detail-text"><span>ניווט לנקודת השייט:</span> <a href="https://maps.app.goo.gl/jLp19qG9sLFYX54QA" target="_blank" class="detail-link">פתח במפה</a></div>
+                </div>
+            </div>
+        </details>
+
+        <details class="activity-card">
+            <summary class="activity-summary">
+                <div class="summary-content">
+                    <span class="activity-title">ארוחת ערב</span>
+                    <span class="activity-time">23:30</span>
+                </div>
+            </summary>
+            <div class="activity-details-content">
+                <div class="detail-row">
+                    <div class="detail-icon">🍽️</div>
+                    <div class="detail-text">ארוחת ערב מפנקת באחת המסעדות הפתוחות ברובע (ראו רשימה מרוכזת למטה).</div>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- יום שלישי -->
+    <div class="day-card">
+        <div class="day-header">
+            <span>יום שלישי - סיורים וטירות</span>
+            <span class="day-date">2/6</span>
+        </div>
+
+        <details class="activity-card">
+            <summary class="activity-summary">
+                <div class="summary-content">
+                    <span class="activity-title">סיור הכרת העיר - פפריקה של סיור</span>
+                    <span class="activity-time">10:00-13:00</span>
+                </div>
+            </summary>
+            <div class="activity-details-content">
+                <div class="detail-row">
+                    <div class="detail-icon">🗺️</div>
+                    <div class="detail-text"><span>מה עושים:</span> סיור מרתק להכרת אתריה המרכזיים וההיסטוריה של בודפשט עם הדרכה מעולה.</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-icon">💰</div>
+                    <div class="detail-text"><span>עלות:</span> 30€ לאדם (בתשלום מזומן).</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-icon">📍</div>
+                    <div class="detail-text"><span>נקודת מפגש:</span> <a href="https://maps.app.goo.gl/hKyMrPdygX6z8J4j6" target="_blank" class="detail-link">פתח במפה</a></div>
+                </div>
+            </div>
+        </details>
+
+        <details class="activity-card">
+            <summary class="activity-summary">
+                <div class="summary-content">
+                    <span class="activity-title">טירת ויידהוניאד והפארק העירוני</span>
+                    <span class="activity-time">14:00-16:30</span>
+                </div>
+            </summary>
+            <div class="activity-details-content">
+                <div class="detail-row">
+                    <div class="detail-icon">🏰</div>
+                    <div class="detail-text"><span>מה עושים:</span> ביקור בטירה הציורית השוכנת בלב הפארק. הכניסה לפארק חופשית והמקום מושלם לפיקניק מפנק ומנוחה.</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-icon">🎈</div>
+                    <div class="detail-text"><span>כדור פורח (אופציונלי):</span> חוויית תצפית מדהימה מגובה רב. עלות: 100 ש"ח לאדם.</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-icon">🚗</div>
+                    <div class="detail-text"><span>התניידות בהמשך:</span> כחצי שעה נסיעה עד לנקודת המפגש של סיור איזי ריידר.</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-icon">📍</div>
+                    <div class="detail-text"><span>ניווט לטירה:</span> <a href="https://maps.app.goo.gl/vdFetMMUAndsCfhm7" target="_blank" class="detail-link">פתח במפה</a></div>
+                </div>
+            </div>
+        </details>
+
+        <details class="activity-card">
+            <summary class="activity-summary">
+                <div class="summary-content">
+                    <span class="activity-title">אופציה: ארוחת צהריים ברובע והשוק</span>
+                    <span class="activity-time">14:00-16:30</span>
+                    <span class="activity-optional">לחילופין</span>
+                </div>
+            </summary>
+            <div class="activity-details-content">
+                <div class="detail-row">
+                    <div class="detail-icon">🛍️</div>
+                    <div class="detail-text"><span>מה עושים:</span> סיבוב חופשי, ארוחת צהריים טעימה ברובע היהודי וביקור בשוק המקומי השוקק.</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-icon">📍</div>
+                    <div class="detail-text"><span>ניווט לשוק:</span> <a href="https://maps.app.goo.gl/eNhbirc1q7TJiXUp7" target="_blank" class="detail-link">פתח במפה</a></div>
+                </div>
+            </div>
+        </details>
+
+        <details class="activity-card">
+            <summary class="activity-summary">
+                <div class="summary-content">
+                    <span class="activity-title">סיור איזי ריידר למצודת הדייגים</span>
+                    <span class="activity-time">17:00-19:00</span>
+                </div>
+            </summary>
+            <div class="activity-details-content">
+                <div class="detail-row">
+                    <div class="detail-icon">🛵</div>
+                    <div class="detail-text"><span>מה עושים:</span> סיור רכיבה חווייתי ומלהיב למצודת הדייגים היפהפייה ולכל הצד המערבי והמלכותי של בודה.</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-icon">💰</div>
+                    <div class="detail-text"><span>עלות:</span> 50€ לאדם (בתשלום מזומן).</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-icon">📞</div>
+                    <div class="detail-text"><span>טלפון ליצירת קשר:</span> 054-9511931</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-icon">📍</div>
+                    <div class="detail-text"><span>נקודת מפגש:</span> <a href="https://maps.app.goo.gl/PqjG7TCqJAwjbqYx9" target="_blank" class="detail-link">פתח במפה</a></div>
+                </div>
+            </div>
+        </details>
+
+        <details class="activity-card">
+            <summary class="activity-summary">
+                <div class="summary-content">
+                    <span class="activity-title">הספרייה הלאומית</span>
+                    <span class="activity-time">19:00-20:00</span>
+                    <span class="activity-optional">אופציונלי</span>
+                </div>
+            </summary>
+            <div class="activity-details-content">
+                <div class="detail-row">
+                    <div class="detail-icon">📚</div>
+                    <div class="detail-text"><span>מה עושים:</span> ביקור אדריכלי ותרבותי בספרייה המרשימה. הגעה לקומה 4 באמצעות המעלית.</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-icon">🕒</div>
+                    <div class="detail-text"><span>שעות פתיחה:</span> 10:00 - 20:00</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-icon">💰</div>
+                    <div class="detail-text"><span>כניסה:</span> 20,000 פורינט לאדם.</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-icon">📍</div>
+                    <div class="detail-text"><span>ניווט:</span> <a href="https://maps.app.goo.gl/8LWo2JyRk8Gmei6Y6" target="_blank" class="detail-link">פתח במפה</a></div>
+                </div>
+            </div>
+        </details>
+
+        <details class="activity-card">
+            <summary class="activity-summary">
+                <div class="summary-content">
+                    <span class="activity-title">תפילת מנחה וערבית</span>
+                    <span class="activity-time">20:15</span>
+                </div>
+            </summary>
+            <div class="activity-details-content">
+                <div class="detail-row">
+                    <div class="detail-icon">🕌</div>
+                    <div class="detail-text"><span>מקום:</span> בתי הכנסת הפעילים ברובע היהודי.</div>
+                </div>
+            </div>
+        </details>
+
+        <details class="activity-card">
+            <summary class="activity-summary">
+                <div class="summary-content">
+                    <span class="activity-title">ארוחת ערב</span>
+                    <span class="activity-time">21:00</span>
+                </div>
+            </summary>
+            <div class="activity-details-content">
+                <div class="detail-row">
+                    <div class="detail-icon">🍽️</div>
+                    <div class="detail-text">ארוחת ערב טעימה וסגירת היום באחת המסעדות הכשרות ברובע.</div>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- יום רביעי -->
+    <div class="day-card">
+        <div class="day-header">
+            <span>יום רביעי - עיירת אומנים ושופינג</span>
+            <span class="day-date">3/6</span>
+        </div>
+
+        <details class="activity-card">
+            <summary class="activity-summary">
+                <div class="summary-content">
+                    <span class="activity-title">חצי יום בעיירה הציורית סנטאנדרה</span>
+                    <span class="activity-time">10:00-14:00</span>
+                </div>
+            </summary>
+            <div class="activity-details-content">
+                <div class="detail-row">
+                    <div class="detail-icon">🎨</div>
+                    <div class="detail-text"><span>מה עושים:</span> נסיעה לעיירת האומנים המפורסמת, טיול בסמטאות הציוריות, ביקור במוזיאון המיניאטורות הייחודי ובבית הכנסת העתיק.</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-icon">☕</div>
+                    <div class="detail-text"><span>עצירת קפה:</span> קפה חב"ד המקומי - <a href="https://maps.app.goo.gl/pRBdeN6hH4hT9zPs5" target="_blank" class="detail-link">ניווט לקפה חב"ד</a></div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-icon">🚊</div>
+                    <div class="detail-text"><span>תחנת רכבת לסנטאנדרה:</span> <a href="https://maps.app.goo.gl/vUHAtTUbfHRJwpqy5" target="_blank" class="detail-link">קישור למפה</a></div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-icon">🏛️</div>
+                    <div class="detail-text"><span>מוזיאון מיניאטורות:</span> <a href="https://maps.app.goo.gl/9yuqSTr5Tp9jqKQy5" target="_blank" class="detail-link">קישור למפה</a></div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-icon">🗺️</div>
+                    <div class="detail-text"><span>טיול ברחובות:</span> <a href="https://maps.app.goo.gl/SDDZG4inQxEd6Bmr9" target="_blank" class="detail-link">קישור למפה</a></div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-icon">🔙</div>
+                    <div class="detail-text"><span>חזרה לבודפשט:</span> <a href="https://maps.app.goo.gl/umodRShp49Y2Eqg76" target="_blank" class="detail-link">קישור למפת חזרה</a></div>
+                </div>
+            </div>
+        </details>
+
+        <details class="activity-card">
+            <summary class="activity-summary">
+                <div class="summary-content">
+                    <span class="activity-title">קניון ארנה מול וקניות בפריימרק</span>
+                    <span class="activity-time">15:00-18:30</span>
+                </div>
+            </summary>
+            <div class="activity-details-content">
+                <div class="detail-row">
+                    <div class="detail-icon">🛍️</div>
+                    <div class="detail-text"><span>מה עושים:</span> חגיגת שופינג מטורפת בקניון ארנה הגדול, ובמיוחד בחנות Primark האהובה.</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-icon">📍</div>
+                    <div class="detail-text"><span>ניווט לקניון:</span> <a href="https://maps.app.goo.gl/2d5nnvbUgJ8ihfjX7" target="_blank" class="detail-link">פתח במפה</a></div>
+                </div>
+            </div>
+        </details>
+
+        <details class="activity-card">
+            <summary class="activity-summary">
+                <div class="summary-content">
+                    <span class="activity-title">ארוחת ערב</span>
+                    <span class="activity-time">19:00</span>
+                </div>
+            </summary>
+            <div class="activity-details-content">
+                <div class="detail-row">
+                    <div class="detail-icon">🍽️</div>
+                    <div class="detail-text">התרעננות וארוחת ערב מפנקת אחרי מסע הקניות.</div>
+                </div>
+            </div>
+        </details>
+
+        <details class="activity-card">
+            <summary class="activity-summary">
+                <div class="summary-content">
+                    <span class="activity-title">תפילת מנחה וערבית</span>
+                    <span class="activity-time">20:15</span>
+                </div>
+            </summary>
+            <div class="activity-details-content">
+                <div class="detail-row">
+                    <div class="detail-icon">🕌</div>
+                    <div class="detail-text"><span>מקום:</span> תפילה מסודרת ברובע היהודי.</div>
+                </div>
+            </div>
+        </details>
+
+        <details class="activity-card">
+            <summary class="activity-summary">
+                <div class="summary-content">
+                    <span class="activity-title">הגלגל הענק של בודפשט</span>
+                    <span class="activity-time">21:00</span>
+                    <span class="activity-optional">אופציונלי</span>
+                </div>
+            </summary>
+            <div class="activity-details-content">
+                <div class="detail-row">
+                    <div class="detail-icon">🎡</div>
+                    <div class="detail-text"><span>מה עושים:</span> תצפית לילה פנורמית מרהיבה ביופיה על כל העיר המוארת ממרכז הגלגל הענק.</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-icon">🕒</div>
+                    <div class="detail-text"><span>שעות פתיחה:</span> 11:00 - 23:00</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-icon">💰</div>
+                    <div class="detail-text"><span>עלות:</span> 4,500 פורינט לאדם.</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-icon">📍</div>
+                    <div class="detail-text"><span>ניווט לגלגל:</span> <a href="https://maps.app.goo.gl/Z1RHC2RviCCyq4yF6" target="_blank" class="detail-link">פתח במפה</a></div>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- יום חמישי -->
+    <div class="day-card">
+        <div class="day-header">
+            <span>יום חמישי - תפילות וטבע לנשמה</span>
+            <span class="day-date">4/6</span>
+        </div>
+
+        <details class="activity-card">
+            <summary class="activity-summary">
+                <div class="summary-content">
+                    <span class="activity-title">יציאה מבודפשט עם רכב שכור</span>
+                    <span class="activity-time">09:30</span>
+                </div>
+            </summary>
+            <div class="activity-details-content">
+                <div class="detail-row">
+                    <div class="detail-icon">🚗</div>
+                    <div class="detail-text"><span>מה עושים:</span> לקיחת הרכב ויציאה לכיוון צפון-מזרח הונגריה ליום מלא נופים ומקומות קדושים.</div>
+                </div>
+            </div>
+        </details>
+
+        <details class="activity-card">
+            <summary class="activity-summary">
+                <div class="summary-content">
+                    <span class="activity-title">תפילה בבית הקברות היהודי במישקולץ</span>
+                    <span class="activity-time">11:15-12:00</span>
+                </div>
+            </summary>
+            <div class="activity-details-content">
+                <div class="detail-row">
+                    <div class="detail-icon">🕯️</div>
+                    <div class="detail-text"><span>מה עושים:</span> עצירה מיוחדת לתפילה וחיבור בבית העלמין היהודי ההיסטורי במישקולץ.</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-icon">📍</div>
+                    <div class="detail-text"><span>ניווט:</span> <a href="https://maps.app.goo.gl/vj7FmX9Hxjjq8gXV9" target="_blank" class="detail-link">פתח במפה</a></div>
+                </div>
+            </div>
+        </details>
+
+        <details class="activity-card">
+            <summary class="activity-summary">
+                <div class="summary-content">
+                    <span class="activity-title">טיול ושייט באגם ומפלי בלילאפורד</span>
+                    <span class="activity-time">12:30-15:00</span>
+                </div>
+            </summary>
+            <div class="activity-details-content">
+                <div class="detail-row">
+                    <div class="detail-icon">🌳</div>
+                    <div class="detail-text"><span>מה עושים:</span> חוויית טבע מרהיבה! טיול בין המפלים הזורמים ושייט בסירות משוטים באגם הפסטורלי המוקף יערות.</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-icon">📍</div>
+                    <div class="detail-text"><span>ניווט לאגם:</span> <a href="https://maps.app.goo.gl/gUvh49JcMFDCG8Wp7" target="_blank" class="detail-link">לחץ כאן</a></div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-icon">🌊</div>
+                    <div class="detail-text"><span>ניווט למפלים:</span> <a href="https://maps.app.goo.gl/531iAtYwpnfgLhyw8" target="_blank" class="detail-link">לחץ כאן</a></div>
+                </div>
+            </div>
+        </details>
+
+        <details class="activity-card">
+            <summary class="activity-summary">
+                <div class="summary-content">
+                    <span class="activity-title">ציון רבי ישעיה'לה מקרעסטיר</span>
+                    <span class="activity-time">16:15-18:30</span>
+                </div>
+            </summary>
+            <div class="activity-details-content">
+                <div class="detail-row">
+                    <div class="detail-icon">🕌</div>
+                    <div class="detail-text"><span>מה עושים:</span> הגעה לציון הקדוש של ר' ישעיה בן ר' משה זצ"ל לפעול ישועות, תפילת מנחה מוקדמת וארוחה חמה כיד המלך בבית הכנסת האורחים המפורסם.</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-icon">📍</div>
+                    <div class="detail-text"><span>ניווט לקבר:</span> <a href="https://maps.app.goo.gl/kRR1kScYfqT3XNJXA" target="_blank" class="detail-link">לחץ כאן</a></div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-icon">🏡</div>
+                    <div class="detail-text"><span>הכנסת אורחים:</span> <a href="https://maps.app.goo.gl/VfJC8E9EHEebbWSA7" target="_blank" class="detail-link">ניווט למתחם האורחים</a></div>
+                </div>
+            </div>
+        </details>
+
+        <details class="activity-card">
+            <summary class="activity-summary">
+                <div class="summary-content">
+                    <span class="activity-title">נסיעה חזרה לבודפשט</span>
+                    <span class="activity-time">18:30-21:00</span>
+                </div>
+            </summary>
+            <div class="activity-details-content">
+                <div class="detail-row">
+                    <div class="detail-icon">🚗</div>
+                    <div class="detail-text"><span>נסיעה:</span> נסיעה רצופה ברכב חזרה לתוך העיר בודפשט.</div>
+                </div>
+            </div>
+        </details>
+
+        <details class="activity-card">
+            <summary class="activity-summary">
+                <div class="summary-content">
+                    <span class="activity-title">החזרת הרכב השכור בסניף</span>
+                    <span class="activity-time">21:00</span>
+                </div>
+            </summary>
+            <div class="activity-details-content">
+                <div class="detail-row">
+                    <div class="detail-icon">🔑</div>
+                    <div class="detail-text"><span>מה עושים:</span> החזרת הרכב השכור בסניף העירוני המסודר והתארגנות להמשך הערב.</div>
+                </div>
+            </div>
+        </details>
+
+        <details class="activity-card">
+            <summary class="activity-summary">
+                <div class="summary-content">
+                    <span class="activity-title">ארוחת ערב</span>
+                    <span class="activity-time">21:20</span>
+                </div>
+            </summary>
+            <div class="activity-details-content">
+                <div class="detail-row">
+                    <div class="detail-icon">🍽️</div>
+                    <div class="detail-text">ארוחת סיכום חגיגית של הטיול באחת ממסעדות הרובע.</div>
+                </div>
+            </div>
+        </details>
+
+        <details class="activity-card">
+            <summary class="activity-summary">
+                <div class="summary-content">
+                    <span class="activity-title">חזרה לדירה ושינה</span>
+                    <span class="activity-time">22:45</span>
+                </div>
+            </summary>
+            <div class="activity-details-content">
+                <div class="detail-row">
+                    <div class="detail-icon">💤</div>
+                    <div class="detail-text">לינה ומנוחה לקראת היקיצה המוקדמת לטיסה.</div>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- יום שישי -->
+    <div class="day-card">
+        <div class="day-header">
+            <span>יום שישי - חוזרים הביתה</span>
+            <span class="day-date">5/6</span>
+        </div>
+
+        <details class="activity-card">
+            <summary class="activity-summary">
+                <div class="summary-content">
+                    <span class="activity-title">השכמה והתארגנות בדירה</span>
+                    <span class="activity-time">02:15</span>
+                </div>
+            </summary>
+            <div class="activity-details-content">
+                <div class="detail-row">
+                    <div class="detail-icon">⏰</div>
+                    <div class="detail-text">קימה זריזה, סגירת מזוודות ובדיקה שלא שכחנו כלום בדירה.</div>
+                </div>
+            </div>
+        </details>
+
+        <details class="activity-card">
+            <summary class="activity-summary">
+                <div class="summary-content">
+                    <span class="activity-title">נסיעה במונית בולט (Bolt) לשדה</span>
+                    <span class="activity-time">02:30</span>
+                </div>
+            </summary>
+            <div class="activity-details-content">
+                <div class="detail-row">
+                    <div class="detail-icon">🚖</div>
+                    <div class="detail-text">הזמנת מונית דרך האפליקציה ונסיעה ישירה לנמל התעופה.</div>
+                </div>
+            </div>
+        </details>
+
+        <details class="activity-card">
+            <summary class="activity-summary">
+                <div class="summary-content">
+                    <span class="activity-title">הגעה לנמל התעופה וצ'ק-אין</span>
+                    <span class="activity-time">03:00</span>
+                </div>
+            </summary>
+            <div class="activity-details-content">
+                <div class="detail-row">
+                    <div class="detail-icon">🏢</div>
+                    <div class="detail-text">הגעה מסודרת כשעתיים וחצי לפני הטיסה לבידוק ודיוטי פרי.</div>
+                </div>
+            </div>
+        </details>
+
+        <details class="activity-card">
+            <summary class="activity-summary">
+                <div class="summary-content">
+                    <span class="activity-title">המראה חזרה לישראל</span>
+                    <span class="activity-time">05:00</span>
+                </div>
+            </summary>
+            <div class="activity-details-content">
+                <div class="detail-row">
+                    <div class="detail-icon">🛬</div>
+                    <div class="detail-text">טיסה נעימה ובטוחה חזרה ארצה!</div>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- ==================== RESTAURANTS SECTION ==================== -->
+    <div class="section-title">🍖 מסעדות בשריות כשרות</div>
+
+    <div class="restaurant-card">
+        <details>
+            <summary class="restaurant-summary">ניתאווהלו (Nitavalo)</summary>
+            <div class="restaurant-details">
+                <p><span>סוג האוכל:</span> מסעת שף בשרית • מנות בקר ואסאדו מפורק בפיתת ענן או בצלחת, מטבח פתוח ובר רטבים.</p>
+                <p><span>רמת כשרות:</span> למהדרין, קהילת החרדים בודאפעסט (חב"ד)</p>
+                <p><span>שעות פתיחה:</span> א'-ה': 12:00–22:00 | ו': 12:00–16:00 | מוצ"ש: 19:30–22:00</p>
+                <p>🔗 <a href="#" class="detail-link">ניווט ל-Nitavalo במפות</a></p>
+            </div>
+        </details>
+    </div>
+
+    <div class="restaurant-card">
+        <details>
+            <summary class="restaurant-summary">אשיז׳ (Ashis')</summary>
+            <div class="restaurant-details">
+                <p><span>סוג האוכל:</span> אוכל רחוב ישראלי • שווארמה, שניצל בפיתה/באגט, צ'יפס וסלטים. פתוח עד מאוחר.</p>
+                <p><span>רמת כשרות:</span> למהדרין, פיקוח מקומי / חב"ד</p>
+                <p><span>שעות פתיחה:</span> א'-ד': 12:00–02:00 בלילה | ה': 12:00–16:00 | מוצ"ש: 22:30–02:00 בלילה</p>
+                <p>🔗 <a href="#" class="detail-link">ניווט ל-Ashis' במפות</a></p>
+            </div>
+        </details>
+    </div>
+
+    <div class="restaurant-card">
+        <details>
+            <summary class="restaurant-summary">כרמל (Carmel)</summary>
+            <div class="restaurant-details">
+                <p><span>סוג האוכל:</span> מסעדה משפחתית • אוכל הונגרי מסורתי (גולאש, שניצל) לצד אוכל ישראלי ובינלאומי. סעודות שבת בהזמנה.</p>
+                <p><span>רמת כשרות:</span> גלאט כשר למהדרין, הרב אוברלנדר (חב"ד)</p>
+                <p><span>שעות פתיחה:</span> א'-ה': 12:00–22:30 | ו': 12:00–15:00 | שבת: סגור</p>
+                <p>🔗 <a href="#" class="detail-link">ניווט לכרמל במפות</a></p>
+            </div>
+        </details>
+    </div>
+
+    <div class="restaurant-card">
+        <details>
+            <summary class="restaurant-summary">חנה (Hanna)</summary>
+            <div class="restaurant-details">
+                <p><span>סוג האוכל:</span> מסורתי אשכנזי • ממוקמת בחצר בית הכנסת. חמין, בקר, מרקי עוף ודגים. סעודות שבת ואוכל מוכן.</p>
+                <p><span>רמת כשרות:</span> גלאט כשר למהדרין, הקהילה האורתודוקסית (CRC)</p>
+                <p><span>שעות פתיחה:</span> א'-ה': 13:00–23:30 | ו': 10:00–16:00 | שבת: סגור</p>
+                <p>🔗 <a href="#" class="detail-link">ניווט לחנה במפות</a></p>
+            </div>
+        </details>
+    </div>
+
+    <div class="restaurant-card">
+        <details>
+            <summary class="restaurant-summary">שוק הכרמל (Shuk HaCarmel)</summary>
+            <div class="restaurant-details">
+                <p><span>סוג האוכל:</span> אוכל רחוב מהיר • שווארמה, שניצל, פלאפל וסלטים.</p>
+                <p><span>רמת כשרות:</span> למהדרין, הרב אוברלנדר (חב"ד)</p>
+                <p><span>שעות פתיחה:</span> א'-ה': 12:00–00:00 חצות | ו'-שבת: סגור</p>
+                <p>🔗 <a href="#" class="detail-link">ניווט לשוק הכרמל</a></p>
+            </div>
+        </details>
+    </div>
+
+    <div class="section-title">🥛 מסעדות חלביות / פרווה כשרות</div>
+
+    <div class="restaurant-card">
+        <details>
+            <summary class="restaurant-summary">קפה תמר (Cafe Tamar)</summary>
+            <div class="restaurant-details">
+                <p><span>סוג האוכל:</span> בית קפה ומסעדה • ארוחות בוקר ישראליות, שקשוקה, פיצות, פסטות (יש ללא גלוטן) וקינוחים.</p>
+                <p><span>רמת כשרות:</span> למהדרין, קהילת החרדים בודאפעסט וחב"ד</p>
+                <p><span>שעות פתיחה:</span> א'-ה': 08:00–22:00 | ו': 08:00–16:00 | שבת: סגור</p>
+                <p>🔗 <a href="#" class="detail-link">ניווט לקפה תמר</a></p>
+            </div>
+        </details>
+    </div>
+
+    <div class="restaurant-card">
+        <details>
+            <summary class="restaurant-summary">טל אביב קפה (Tel Aviv Cafe)</summary>
+            <div class="restaurant-details">
+                <p><span>סוג האוכל:</span> בית קפה ומסעדה • ארוחות בוקר, פסטות, דגים (סלמון), סלטים רעננים ומאפים.</p>
+                <p><span>רמת כשרות:</span> חלב ישראל למהדרין, הרב אוברלנדר (חב"ד)</p>
+                <p><span>שעות פתיחה:</span> א'-ה': 08:30–21:00 | ו': 08:30–14:00 | שבת: סגור</p>
+                <p>🔗 <a href="#" class="detail-link">ניווט ל-Tel Aviv Cafe</a></p>
+            </div>
+        </details>
+    </div>
+
+    <div class="restaurant-card">
+        <details>
+            <summary class="restaurant-summary">ברוקלין בייגל (Brooklyn Bagel)</summary>
+            <div class="restaurant-details">
+                <p><span>סוג האוכל:</span> קפה ובייגלס (רובע 13) • כריכי בייגל ניו-יורקי, דגים, סלטים, שקשוקה וקפה על גדות הדנובה.</p>
+                <p><span>רמת כשרות:</span> חלב ישראל למהדרין, הרב אוברלנדר (חב"ד)</p>
+                <p><span>שעות פתיחה:</span> א': 09:00–18:00 | ב'-ה': 09:00–21:00 | ו': 09:00–14:30 | שבת: סגור</p>
+                <p>🔗 <a href="https://maps.app.goo.gl/nD7LJZJ6kKqNsisWA" class="detail-link" target="_blank">ניווט לברוקלין בייגל</a></p>
+            </div>
+        </details>
+    </div>
+
+    <div class="restaurant-card">
+        <details>
+            <summary class="restaurant-summary">חומוס בר (Hummus Bar - Kosher)</summary>
+            <div class="restaurant-details">
+                <p><span>סוג האוכל:</span> חומוסיה (פרווה) • חומוס, פלאפל, צ'יפס וסלטים. רק הסניף ברחוב Wesselényi כשר!</p>
+                <p><span>רמת כשרות:</span> למהדרין, חוג חתם סופר פתח תקווה</p>
+                <p><span>שעות פתיחה:</span> א'-ה': 12:00–23:00 | ו': 11:00–16:00 | שבת: סגור</p>
+                <p>🔗 <a href="#" class="detail-link">ניווט לחומוס בר הכשר</a></p>
+            </div>
+        </details>
+    </div>
+
+    <div class="section-title">🛒 השלמות ומוצרים (רובע 7)</div>
+    <div class="restaurant-card" style="padding: 12px; font-size: 13.5px; background: white;">
+        <p style="margin-bottom: 6px;">🍞 <span>UpTown Kosher Bakery</span> – מאפייה כשרה ללחמים, חלות מאפים ומתוקים.</p>
+        <p>🧀 <span>Kosher Market (Síp 12)</span> – סופרמרקט כשר להצטיידות במוצרים סגורים, גבינות, חטיפים ויינות.</p>
+    </div>
+
+    <!-- ==================== COSTS TABLE ==================== -->
+    <div class="costs-container">
+        <div style="font-weight: bold; font-size: 16px; color: var(--color-brown); margin-bottom: 8px; border-bottom: 2px solid var(--color-orange); padding-bottom: 4px;">📊 טבלת עלויות אומדן לאדם</div>
+        <table class="costs-table">
+            <thead>
+                <tr>
+                    <th>אטרקציה / פעילות</th>
+                    <th>מחיר במטבע מקומי</th>
+                    <th>מחיר בשקלים (אומדן)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>שייט לילי בדנובה</td>
+                    <td>-</td>
+                    <td>~50 ₪</td>
+                </tr>
+                <tr>
+                    <td>סיור הכרת העיר (פפריקה)</td>
+                    <td>30€</td>
+                    <td>~120 ₪</td>
+                </tr>
+                <tr>
+                    <td>סיור איזי ריידר (בודה)</td>
+                    <td>50€</td>
+                    <td>~200 ₪</td>
+                </tr>
+                <tr>
+                    <td>השכרת אופניים באי מרגיט (אופציונלי)</td>
+                    <td>-</td>
+                    <td>~60 ₪</td>
+                </tr>
+                <tr>
+                    <td>כדור פורח בפארק (אופציונלי)</td>
+                    <td>-</td>
+                    <td>~100 ₪</td>
+                </tr>
+                <tr>
+                    <td>הספרייה הלאומית (אופציונלי)</td>
+                    <td>20,000 HUF</td>
+                    <td>~186 ₪</td>
+                </tr>
+                <tr>
+                    <td>הגלגל הענק בודפשט (אופציונלי)</td>
+                    <td>4,500 HUF</td>
+                    <td>~42 ₪</td>
+                </tr>
+                <tr class="total-row">
+                    <td>סה"כ חובה (שייט + 2 סיורים)</td>
+                    <td>80€</td>
+                    <td>~370 ₪</td>
+                </tr>
+                <tr class="total-row" style="background-color: #EBF5EF !important;">
+                    <td>סה"כ כולל אופציונליים מלאים</td>
+                    <td>80€ + 24,500 HUF</td>
+                    <td>~758 ₪</td>
+                </tr>
+            </tbody>
+        </table>
+        <p style="font-size: 11px; color: var(--color-muted); margin-top: 10px; text-align: center;">* חישוב המרה לפי יחס פורינט של 100 פורינט = 0.93 ש"ח, ואירו לפי ~4 ₪.</p>
+    </div>
+
+    <!-- Footer Copyright -->
+    <footer>
+        <p>הופק באהבה עבור הטיול שלכם</p>
+        <p>© 2026 כל הזכויות שמורות – הדס טרכטר</p>
+    </footer>
+
+</body>
+</html>
